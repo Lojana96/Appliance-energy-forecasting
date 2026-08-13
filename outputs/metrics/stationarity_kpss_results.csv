@@ -1,0 +1,4 @@
+series,KPSS Statistic,p-value,Used Lags,Critical Value 10%,Critical Value 5%,Critical Value 2.5%,Critical Value 1%
+Original hourly Appliances,0.038398792999091956,0.1,25,0.347,0.463,0.574,0.739
+First-differenced Appliances,0.07832177299842266,0.1,113,0.347,0.463,0.574,0.739
+Seasonally differenced Appliances,0.008673777652856032,0.1,27,0.347,0.463,0.574,0.739

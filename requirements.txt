@@ -1,0 +1,16 @@
+numpy>=1.26
+pandas>=2.2
+matplotlib>=3.8
+scikit-learn>=1.5
+statsmodels>=0.14
+scipy>=1.13
+jupyter>=1.0
+notebook>=7.2
+tqdm>=4.66
+joblib>=1.4
+
+torch>=2.2
+transformers>=4.43
+chronos-forecasting
+
+openpyxl>=3.1
