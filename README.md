@@ -1,70 +1,81 @@
-# Intelligent Appliance Energy Forecasting Using Statistical, Machine Learning, and Foundation Models
+# Appliance Energy Consumption Forecasting Using Classical Time Series, Machine Learning and Foundation Models
 
-## Project Overview
+## Overview
 
-This project investigates short-term household appliance energy forecasting using multiple forecasting paradigms, ranging from traditional statistical models to modern foundation models.
+This project investigates short-term household appliance energy consumption forecasting using multiple forecasting approaches, ranging from simple benchmark models to advanced statistical, machine learning and foundation models.
 
-The objective is to compare forecasting performance across benchmark models, SARIMAX, feature-based machine learning, and Chronos-Bolt foundation models using the UCI Appliances Energy Prediction dataset.
+The project follows a complete end-to-end data science workflow including:
 
-The project follows a complete data science workflow including:
-
-- Data preparation
-- Exploratory data analysis
+- Data preprocessing
+- Exploratory time-series analysis
 - Benchmark forecasting
 - SARIMAX modelling
-- Feature engineering
 - Feature-based machine learning
-- Foundation model forecasting
+- Foundation model forecasting (Chronos-Bolt-Tiny)
 - Model comparison and evaluation
+
+The objective is to identify the most accurate and practical forecasting model for smart-home energy management.
 
 ---
 
 ## Dataset
 
-**Dataset:**
-UCI Machine Learning Repository – Appliances Energy Prediction Dataset
+**Source**
 
-https://archive.ics.uci.edu/ml/datasets/Appliances+energy+prediction
+UCI Machine Learning Repository
 
-The dataset contains hourly household appliance energy consumption together with indoor environmental sensor measurements and outdoor weather variables.
+**Dataset**
+
+Appliance Energy Prediction Dataset
+
+Original paper:
+
+> Candanedo, L.M., Feldheim, V. and Deramaix, D. (2017). Data driven prediction models of energy use of appliances in a low-energy house.
 
 ---
 
 ## Project Structure
 
 ```
-project/
+Appliance-energy-forecasting/
 │
 ├── data/
-│   ├── raw/
-│   └── processed/
+│   └── Raw and processed datasets
 │
 ├── notebooks/
 │   ├── 01_data_preparation.ipynb
 │   ├── 02_exploratory_analysis.ipynb
 │   ├── 03_benchmark_models.ipynb
-│   ├── 04_sarimax_models.ipynb
+│   ├── 04_sarimax_model.ipynb
 │   ├── 05_feature_based_models.ipynb
 │   ├── 06_foundation_model.ipynb
-│   └── 07_model_comparison.ipynb
-│
-├── src/
-│   ├── models/
-│   ├── config.py
-│   ├── data.py
-│   ├── evaluation.py
-│   ├── features.py
-│   ├── pipeline.py
-│   └── plotting.py
+│   └── 07_final_model_comparison.ipynb
 │
 ├── outputs/
 │   ├── figures/
-│   ├── forecasts/
-│   └── metrics/
+│   ├── tables/
+│   └── trained_models/
+│
+├── reports/
+│   └── Final Report (PDF)
+│
+├── scripts/
+│   └── Utility scripts
+│
+├── src/
+│   └── appliance_energy/
+│       ├── config.py
+│       ├── data.py
+│       ├── features.py
+│       ├── evaluation.py
+│       ├── plotting.py
+│       ├── pipeline.py
+│       ├── __init__.py
+│       └── models/
 │
 ├── requirements.txt
 ├── README.md
-└── .gitignore
+└── LICENSE
 ```
 
 ---
@@ -75,17 +86,17 @@ project/
 
 - Mean
 - Naïve
-- Drift
 - Daily Seasonal Naïve
 - Weekly Seasonal Naïve
+- Drift
 
 ### Statistical Model
 
 - SARIMAX
 
-### Feature-Based Machine Learning
+### Machine Learning Model
 
-- HistGradientBoostingRegressor
+- HistGradientBoosting Regressor
 
 ### Foundation Model
 
@@ -95,7 +106,7 @@ project/
 
 ## Evaluation Metrics
 
-The following metrics were used:
+The forecasting models were evaluated using:
 
 - Mean Absolute Error (MAE)
 - Root Mean Squared Error (RMSE)
@@ -104,16 +115,38 @@ The following metrics were used:
 
 ---
 
-## Main Results
+## Results
+
+### 14-Day Rolling Evaluation
 
 | Model | RMSE |
-|-------|------|
-| SARIMAX | 24.158 |
-| HistGradientBoosting | 29.865 |
-| Chronos-Bolt-Tiny | 42.226 |
-| Weekly Seasonal Naïve | 48.808 |
+|-------|------:|
+| HistGradientBoosting | **52.26** |
+| SARIMAX | 65.14 |
+| Mean Benchmark | 74.91 |
+| Weekly Seasonal Naïve | 79.29 |
+| Chronos-Bolt-Tiny* | 42.23 (24-hour evaluation) |
 
-The SARIMAX model achieved the best forecasting performance over the common 24-hour evaluation period.
+*Chronos was evaluated separately on a common 24-hour forecasting horizon.
+
+### Final 24-Hour Comparison
+
+| Model | RMSE |
+|-------|------:|
+| SARIMAX | **24.16** |
+| HistGradientBoosting | 29.87 |
+| Chronos-Bolt-Tiny | 42.23 |
+| Weekly Seasonal Naïve | 48.81 |
+
+---
+
+## Key Findings
+
+- Strong daily seasonality was identified during exploratory analysis.
+- Weekly Seasonal Naïve was the strongest benchmark model.
+- SARIMAX achieved the highest forecasting accuracy on the common 24-hour evaluation.
+- HistGradientBoosting substantially improved forecasting performance through engineered temporal features.
+- Chronos-Bolt-Tiny demonstrated promising zero-shot forecasting capability but did not outperform task-specific models.
 
 ---
 
@@ -123,49 +156,25 @@ The SARIMAX model achieved the best forecasting performance over the common 24-h
 - Pandas
 - NumPy
 - Matplotlib
-- Scikit-learn
 - Statsmodels
+- Scikit-learn
 - Chronos-Bolt
 - Jupyter Notebook
 
 ---
 
-## Installation
-
-Clone the repository
-
-```bash
-git clone https://github.com/yourusername/appliance-energy-forecasting.git
-```
-
-Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-Launch Jupyter Notebook
-
-```bash
-jupyter notebook
-```
-
-Run notebooks sequentially:
-
-1. Data Preparation
-2. Exploratory Analysis
-3. Benchmark Models
-4. SARIMAX
-5. Feature-Based Models
-6. Foundation Model
-7. Model Comparison
-
----
-
 ## Author
 
-Lojana Jegatheeswaran
+**Lojana Jegatheeswaran**
 
 MSc Data Science
 
 University of Hertfordshire
+
+2026
+
+---
+
+## License
+
+This project is released under the MIT License.
